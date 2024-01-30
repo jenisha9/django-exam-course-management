@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Courses and Entrance Exams</title>
+</head>
+<body>
+
+<h1>Courses and Entrance Exams</h1>
+
+<form method="get" action="{% url 'resultview' %}">
+    <label for="search_exam">Search Entrance Exam:</label>
+    <select name="search_exam" id="search_exam">
+        <option value="" selected>Select an Entrance Exam</option>
+        {% for exam in entrance_exams %}
+            <option value="{{ exam.id }}">{{ exam.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+
+<h2>Entrance Exams</h2>
+<ul>
+    {% for exam in entrance_exams %}
+        <li>{{ exam.name }} - Full Mark: {{ exam.full_mark }}, Pass Mark: {{ exam.pass_mark }}</li>
+    {% endfor %}
+</ul>
+
+
+<h2>Courses</h2>
+<ul>
+    {% for course in courses %}
+        <li>{{ course.name }} - Eligibility Exam: {{ course.eligibility_exam.name }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
