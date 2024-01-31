@@ -45,11 +45,9 @@
 <h3>Courses related to selected entrance examination: </h3>
 <ul>
     {% for course in courses %}
-        <li>{{ course.name }} - Eligibility Exam: {{ course.eligibility_exam.name }}</li>
+        <li>{{ course.name }}<br> - Eligibility Exam: {{ course.eligibility_exam.name }}</li>
     {% endfor %}
 </ul>
-
-
 
 </body>
 </html>
