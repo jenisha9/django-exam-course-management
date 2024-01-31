@@ -13,3 +13,16 @@ def resultview(request):
         courses = Course.objects.filter(eligibility_exam=entrance_exam)
 
     return render(request, 'exams/resultview.html', {'entrance_exams': entrance_exams, 'courses': courses})
+
+def entrance_exam(request):
+    entrance_exams = EntranceExam.objects.all()
+    return render(request, 'exams/entrance_exam.html', {'entrance_exams': entrance_exams})
+    
+ 
+def courses(request):   
+    courses = Course.objects.all()
+    return render(request, 'exams/course.html', {'courses': courses})
+    
+    
+    
+    

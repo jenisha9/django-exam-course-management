@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entrance Exams in Nepal</title>
+</head>
+<body>
+
+
+<h2>Entrance Exams</h2>
+<ol>
+    {% for exam in entrance_exams %}
+        <li>{{ exam.name }} <br>
+             Full Mark: {{ exam.full_mark }}
+             Pass Mark: {{ exam.pass_mark }}</li>
+    {% endfor %}
+</ol>
+
+
+
+</body>
+</html>

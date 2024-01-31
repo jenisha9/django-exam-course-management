@@ -2,10 +2,33 @@
 <html>
 <head>
     <title>Courses and Entrance Exams</title>
+    <style>
+        .box{
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .clickable-text {
+            text-decoration: none; 
+            color: #007bff; 
+            font-weight: bold; 
+          }
+    </style>
 </head>
 <body>
 
 <h1>Courses and Entrance Exams</h1>
+
+<div class="box">
+    <a class="clickable-text" href= http://127.0.0.1:8000/resultview/entranceexam> Entrance Exams </a> 
+
+</div><br>
+
+<div class="box">
+    <a class="clickable-text" href= http://127.0.0.1:8000/resultview/courses> Courses </a> 
+
+</div><br>
 
 <form method="get" action="{% url 'resultview' %}">
     <label for="search_exam">Search Entrance Exam:</label>
@@ -19,20 +42,14 @@
 </form>
 
 
-<h2>Entrance Exams</h2>
-<ul>
-    {% for exam in entrance_exams %}
-        <li>{{ exam.name }} - Full Mark: {{ exam.full_mark }}, Pass Mark: {{ exam.pass_mark }}</li>
-    {% endfor %}
-</ul>
-
-
-<h2>Courses</h2>
+<h3>Courses related to selected entrance examination: </h3>
 <ul>
     {% for course in courses %}
         <li>{{ course.name }} - Eligibility Exam: {{ course.eligibility_exam.name }}</li>
     {% endfor %}
 </ul>
+
+
 
 </body>
 </html>

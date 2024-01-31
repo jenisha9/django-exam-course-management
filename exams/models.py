@@ -5,7 +5,6 @@ class EntranceExam(models.Model):
     name = models.CharField(max_length=255)
     full_mark = models.IntegerField(default=100)
     pass_mark = models.IntegerField()
-
     def __str__(self):
         return self.name
 

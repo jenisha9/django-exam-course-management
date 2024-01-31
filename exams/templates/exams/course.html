@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Courses</title>
+</head>
+<body>
+    <h1> Courses that require entrance examination </h1><br>
+   
+    <ol>
+        {% for course in courses %}
+            <li>{{ course.name }} - Eligibility Exam: {{ course.eligibility_exam.name }}</li>
+        {% endfor %}
+    </ol>
+
+</body>
+</html>
