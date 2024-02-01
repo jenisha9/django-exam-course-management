@@ -2,13 +2,20 @@
 <html>
 <head>
     <title>Courses</title>
+    <style>
+        .text {
+            text-decoration: none; 
+            color: #007bff; 
+            font-weight: bold; 
+          }
+    </style>
 </head>
 <body>
     <h1> <span style="color: blue;">Courses that require entrance examination </span></h1><br>
    
     <ol>
         {% for course in courses %}
-            <li><strong>{{ course.name }}</strong> <br>
+            <li><span class='text'><strong>{{ course.name }}</span></strong> <br>
                 - Eligibility Exam: {{ course.eligibility_exam.name }} <br>
                 Offering College: 
                 {% for college in course.offering_college.all %}

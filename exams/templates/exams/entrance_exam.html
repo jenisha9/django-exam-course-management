@@ -2,20 +2,27 @@
 <html>
 <head>
     <title>Entrance Exams in Nepal</title>
+    <style>
+        .box{
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .clickable-text {
+            text-decoration: none; 
+            color: #007bff; 
+            font-weight: bold; 
+          }
+    </style>
 </head>
 <body>
-
 
 <h2>Entrance Exams</h2>
 <ol>
     {% for exam in entrance_exams %}
-        <li>{{ exam.name }} <br>
-             Full Mark: {{ exam.full_mark }}
-             Pass Mark: {{ exam.pass_mark }}</li>
+        <li class='box'> <a class='clickable-text' href="/{{exam.slug}}">{{ exam.name }} </a> <br>
     {% endfor %}
 </ol>
-
-
-
 </body>
 </html>
