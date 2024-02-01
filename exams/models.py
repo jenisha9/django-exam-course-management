@@ -1,11 +1,20 @@
 from django.db import models
 
+LEVEL_CHOICES = [
+        ('diploma', 'Diploma Level'),
+        ('bachelor', 'Bachelor\'s Level'),
+        ('master', 'Master\'s Level'),
+    ]
 
 class EntranceExam(models.Model):
     name = models.CharField(max_length=255)
     full_mark = models.IntegerField(default=100)
     pass_mark = models.IntegerField()
-
+    slug = models.SlugField(null=True, default='')
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
+    description = models.TextField(max_length=1000, default='')
+    university = models.CharField(max_length = 200, default='')
+    
     def __str__(self):
         return self.name
 
