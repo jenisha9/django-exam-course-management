@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam details {{exam.slug}}</title>
+</head>
+<body>
+
+<strong>Exam detail for
+    {% for exam in exam_detail %}
+    {{exam.name}}</strong> <br>
+             Full Mark: {{ exam.full_mark }}<br>
+             Pass Mark: {{ exam.pass_mark }}<br>
+             Level: {{exam.level}}<br>
+             Detail: {{exam.description}}<br>
+             
+    {% endfor %}
+
+
+</body>
+</html>
