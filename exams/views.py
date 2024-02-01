@@ -1,31 +1,42 @@
-from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, JsonResponse
+from rest_framework.parsers import JSONParser
 
-from .models import Course, EntranceExam
+from .models import EntranceExam
+from .serializer import EntranceExamSerializer
 
 
-def resultview(request):
-    entrance_exams = EntranceExam.objects.all()
-    courses = Course.objects.all()
+def exam_list(request):
+    if request.method == 'GET':
+        exam = EntranceExam.objects.all()
+        serializer = EntranceExamSerializer(exam, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
-    search_exam_id = request.GET.get('search_exam')
-    if search_exam_id:
-        entrance_exam = get_object_or_404(EntranceExam, pk=search_exam_id)
-        courses = Course.objects.filter(eligibility_exam=entrance_exam)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = EntranceExamSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+    
+def exam_detail(request, pk):
+    try:
+        exam = EntranceExam.objects.get(pk=pk)
+    except EntranceExam.DoesNotExist:
+        return HttpResponse(status=404)
 
-    return render(request, 'exams/resultview.html', {'entrance_exams': entrance_exams, 'courses': courses})
+    if request.method == 'GET':
+        serializer = EntranceExamSerializer(exam)
+        return JsonResponse(serializer.data)
 
-def entrance_exam(request):
-    entrance_exams = EntranceExam.objects.all()
-    return render(request, 'exams/entrance_exam.html', {'entrance_exams': entrance_exams })
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = EntranceExamSerializer(exam, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 
-def courses(request):   
-    courses = Course.objects.all()
-    return render(request, 'exams/course.html', {'courses': courses})
-   
-def exam_detail(request,value):
-    exam_detail = EntranceExam.objects.filter(slug= value)
-    if not exam_detail:
-        raise Http404
-    return render(request, 'exams/exam_detail.html', {'exam_detail': exam_detail})
-     
+    elif request.method == 'DELETE':
+        exam.delete()
+        return HttpResponse(status=204)
