@@ -4,28 +4,36 @@ from django.shortcuts import get_object_or_404, render
 from .models import Course, EntranceExam
 
 
-def resultview(request):
+def result_view(request):
     entrance_exams = EntranceExam.objects.all()
     courses = Course.objects.all()
 
-    search_exam_id = request.GET.get('search_exam')
+    search_exam_id = request.GET.get("search_exam")
     if search_exam_id:
-        entrance_exam = get_object_or_404(EntranceExam, pk=search_exam_id)
-        courses = Course.objects.filter(eligibility_exam=entrance_exam)
+        courses = Course.objects.filter(
+            eligibility_exam=get_object_or_404(EntranceExam, pk=search_exam_id)
+        )
+    return render(
+        request,
+        "exams/resultview.html",
+        {"entrance_exams": entrance_exams, "courses": courses},
+    )
 
-    return render(request, 'exams/resultview.html', {'entrance_exams': entrance_exams, 'courses': courses})
 
 def entrance_exam(request):
     entrance_exams = EntranceExam.objects.all()
-    return render(request, 'exams/entrance_exam.html', {'entrance_exams': entrance_exams })
+    return render(
+        request, "exams/entrance_exam.html", {"entrance_exams": entrance_exams}
+    )
 
-def courses(request):   
+
+def courses(request):
     courses = Course.objects.all()
-    return render(request, 'exams/course.html', {'courses': courses})
-   
-def exam_detail(request,value):
-    exam_detail = EntranceExam.objects.filter(slug= value)
+    return render(request, "exams/course.html", {"courses": courses})
+
+
+def exam_detail(request, value):
+    exam_detail = EntranceExam.objects.filter(slug=value)
     if not exam_detail:
         raise Http404
-    return render(request, 'exams/exam_detail.html', {'exam_detail': exam_detail})
-     
+    return render(request, "exams/exam_detail.html", {"exam_detail": exam_detail})
