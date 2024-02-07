@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics
 
 from .models import EntranceExam
@@ -7,10 +8,11 @@ from .serializer import EntranceExamSerializer
 class ExamList(generics.ListCreateAPIView):
     queryset = EntranceExam.objects.all()
     serializer_class = EntranceExamSerializer
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['name', 'description', 'university']
     ordering_fields = ['name', 'full_mark', 'pass_mark']
-     
+    filterset_fields = ['university', 'full_mark']
+
 class ExamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = EntranceExam.objects.all()
     serializer_class = EntranceExamSerializer
